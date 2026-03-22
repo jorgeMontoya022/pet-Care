@@ -17,5 +17,7 @@ public interface VeterinarioService {
 
     void eliminar(Long id) throws SQLException;
 
+    VeterinarioDto login(String tarjetaProfesional, String contrasena) throws SQLException;
+
 
 }

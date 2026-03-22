@@ -65,6 +65,19 @@ public class VeterinarioRepository {
         }
     }
 
+    public VeterinarioEntity login(String tarjetaProfesional, String contrasena) throws SQLException {
+        String sql = "SELECT idVeterinario, nombre, especialidad, tarjetaProfesional " +
+                     "FROM VETERINARIOS WHERE tarjetaProfesional = ? AND contrasena = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, tarjetaProfesional);
+            ps.setString(2, contrasena);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return mapearVet(rs);
+            }
+        }
+        return null; // null = credenciales incorrectas
+    }
+
     private VeterinarioEntity mapearVet(ResultSet rs) throws SQLException {
         VeterinarioEntity v = new VeterinarioEntity();
         v.setIdVeterinario(rs.getLong("idVeterinario"));

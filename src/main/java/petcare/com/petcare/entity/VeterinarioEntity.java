@@ -7,6 +7,8 @@ public class VeterinarioEntity {
     private String especialidad; // General, Cirujano, etc.
     private String tarjetaProfesional;
 
+    private String contrasena;
+
 
     public VeterinarioEntity() {
 
@@ -49,5 +51,13 @@ public class VeterinarioEntity {
 
     public void setTarjetaProfesional(String tarjetaProfesional) {
         this.tarjetaProfesional = tarjetaProfesional;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }

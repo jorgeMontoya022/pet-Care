@@ -59,6 +59,20 @@ public class VeterinarioServiceImpl implements VeterinarioService {
     }
 
     @Override
+    public VeterinarioDto login(String tarjetaProfesional, String contrasena) throws SQLException {
+        if (tarjetaProfesional == null || tarjetaProfesional.isBlank())
+            throw new IllegalArgumentException("La tarjeta profesional es obligatoria.");
+        if (contrasena == null || contrasena.isBlank())
+            throw new IllegalArgumentException("La contraseña es obligatoria.");
+
+        VeterinarioEntity entity = veterinarioRepository.login(tarjetaProfesional, contrasena);
+        if (entity == null)
+            throw new IllegalArgumentException("Tarjeta profesional o contraseña incorrecta.");
+
+        return VeterinarioMapper.INSTANCE.toDto(entity);
+    }
+
+    @Override
     public void eliminar(Long id) throws SQLException {
         veterinarioRepository.eliminar(id);
 
