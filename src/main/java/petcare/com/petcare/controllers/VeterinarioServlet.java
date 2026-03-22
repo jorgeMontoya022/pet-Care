@@ -1,6 +1,7 @@
 package petcare.com.petcare.controllers;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+@WebServlet("/veterinarios")
 public class VeterinarioServlet extends HttpServlet {
 
     private VeterinarioService veterinarioService;
@@ -32,7 +34,11 @@ public class VeterinarioServlet extends HttpServlet {
         String accion = req.getParameter("accion");
 
         try {
-            if ("editar".equals(accion)) {
+            if ("nuevo".equals(accion)) {
+                req.getRequestDispatcher("/WEB-INF/views/veterinarios/formRegistrar.jsp")
+                        .forward(req, resp);
+
+            } else if ("editar".equals(accion)) {
                 Long id = Long.parseLong(req.getParameter("id"));
                 VeterinarioDto vet = veterinarioService.buscarPorId(id);
                 req.setAttribute("veterinario", vet);
@@ -91,5 +97,4 @@ public class VeterinarioServlet extends HttpServlet {
             req.getRequestDispatcher(vista).forward(req, resp);
         }
     }
-
 }

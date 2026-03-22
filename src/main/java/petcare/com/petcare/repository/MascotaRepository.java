@@ -118,6 +118,34 @@ public class MascotaRepository {
         }
     }
 
+    public MascotaDto buscarConDuenoPorId(Long id) throws SQLException {
+        String sql = """
+                SELECT m.idMascota, m.nombre, m.especie, m.raza, m.edad,
+                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno,
+                       d.telefono AS telefonoDueno, d.correo AS correoDueno
+                FROM MASCOTAS m
+                JOIN DUENOS d ON m.idDueno = d.idDueno
+                WHERE m.idMascota = ?
+                """;
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    MascotaDto dto = new MascotaDto();
+                    dto.setIdMascota(rs.getLong("idMascota"));
+                    dto.setNombre(rs.getString("nombre"));
+                    dto.setEspecie(rs.getString("especie"));
+                    dto.setRaza(rs.getString("raza"));
+                    dto.setEdad(rs.getInt("edad"));
+                    dto.setNombreDueno(rs.getString("nombreDueno"));
+                    dto.setCedulaDueno(rs.getString("cedulaDueno"));
+                    return dto;
+                }
+            }
+        }
+        return null;
+    }
+
     private MascotaEntity mapearMascota(ResultSet rs) throws SQLException {
         MascotaEntity m = new MascotaEntity();
         m.setIdMascota(rs.getLong("idMascota"));

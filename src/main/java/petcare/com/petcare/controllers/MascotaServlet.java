@@ -15,6 +15,7 @@ import java.util.List;
 
 @WebServlet("/mascotas")
 public class MascotaServlet extends HttpServlet {
+
     private MascotaService mascotaService;
 
     @Override
@@ -33,7 +34,11 @@ public class MascotaServlet extends HttpServlet {
         String accion = req.getParameter("accion");
 
         try {
-            if ("editar".equals(accion)) {
+            if ("nuevo".equals(accion)) {
+                req.getRequestDispatcher("/WEB-INF/views/mascotas/formRegistrar.jsp")
+                        .forward(req, resp);
+
+            } else if ("editar".equals(accion)) {
                 Long id = Long.parseLong(req.getParameter("id"));
                 MascotaDto mascota = mascotaService.buscarPorId(id);
                 req.setAttribute("mascota", mascota);
@@ -46,7 +51,6 @@ public class MascotaServlet extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/mascotas");
 
             } else if ("buscarPorDueno".equals(accion)) {
-                // Útil para filtrar mascotas por dueño
                 String cedula = req.getParameter("cedula");
                 List<MascotaDto> lista = mascotaService.buscarPorCedulaDueno(cedula);
                 req.setAttribute("mascotas", lista);
@@ -80,8 +84,12 @@ public class MascotaServlet extends HttpServlet {
         dto.setNombre(req.getParameter("nombre"));
         dto.setEspecie(req.getParameter("especie"));
         dto.setRaza(req.getParameter("raza"));
-        dto.setEdad(Integer.parseInt(req.getParameter("edad")));
         dto.setCedulaDueno(req.getParameter("cedulaDueno"));
+
+        String edadStr = req.getParameter("edad");
+        if (edadStr != null && !edadStr.isBlank()) {
+            dto.setEdad(Integer.parseInt(edadStr));
+        }
 
         try {
             if ("actualizar".equals(accion)) {
@@ -103,5 +111,4 @@ public class MascotaServlet extends HttpServlet {
             req.getRequestDispatcher(vista).forward(req, resp);
         }
     }
-
 }

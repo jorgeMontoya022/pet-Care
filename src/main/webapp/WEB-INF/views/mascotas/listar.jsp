@@ -17,7 +17,7 @@
             <h1 class="text-2xl font-semibold text-zinc-900 tracking-tight">Mascotas</h1>
             <p class="text-sm text-zinc-400 mt-1">Pacientes registrados</p>
         </div>
-        <a href="${pageContext.request.contextPath}/WEB-INF/views/mascotas/formRegistrar.jsp"
+        <a href="${pageContext.request.contextPath}/mascotas?accion=nuevo"
            class="px-4 py-2 bg-zinc-900 text-white text-sm font-medium rounded-xl hover:bg-zinc-700 transition-all">
             + Nueva mascota
         </a>
@@ -27,7 +27,6 @@
         <div class="mb-4 px-4 py-3 bg-red-50 border border-red-100 rounded-xl text-sm text-red-600">${error}</div>
     </c:if>
 
-    <!-- Buscador por dueño -->
     <form action="${pageContext.request.contextPath}/mascotas" method="get" class="mb-6 flex gap-3">
         <input type="hidden" name="accion" value="buscarPorDueno"/>
         <input type="text" name="cedula" placeholder="Buscar por cédula del dueño..."
@@ -73,7 +72,9 @@
                 </tr>
             </c:forEach>
             <c:if test="${empty mascotas}">
-                <tr><td colspan="6" class="px-6 py-12 text-center text-zinc-300 text-sm">No hay mascotas registradas</td></tr>
+                <tr>
+                    <td colspan="6" class="px-6 py-12 text-center text-zinc-300 text-sm">No hay mascotas registradas</td>
+                </tr>
             </c:if>
             </tbody>
         </table>

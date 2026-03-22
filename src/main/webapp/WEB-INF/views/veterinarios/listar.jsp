@@ -17,7 +17,7 @@
             <h1 class="text-2xl font-semibold text-zinc-900 tracking-tight">Veterinarios</h1>
             <p class="text-sm text-zinc-400 mt-1">Equipo médico registrado</p>
         </div>
-        <a href="${pageContext.request.contextPath}/WEB-INF/views/veterinarios/formRegistrar.jsp"
+        <a href="${pageContext.request.contextPath}/veterinarios?accion=nuevo"
            class="px-4 py-2 bg-zinc-900 text-white text-sm font-medium rounded-xl hover:bg-zinc-700 transition-all">
             + Nuevo veterinario
         </a>
@@ -57,7 +57,9 @@
                 </tr>
             </c:forEach>
             <c:if test="${empty veterinarios}">
-                <tr><td colspan="4" class="px-6 py-12 text-center text-zinc-300 text-sm">No hay veterinarios registrados</td></tr>
+                <tr>
+                    <td colspan="4" class="px-6 py-12 text-center text-zinc-300 text-sm">No hay veterinarios registrados</td>
+                </tr>
             </c:if>
             </tbody>
         </table>

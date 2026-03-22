@@ -14,16 +14,27 @@
 <main class="max-w-4xl mx-auto px-6 pt-24 pb-12">
     <div class="flex items-center justify-between mb-8">
         <div>
-            <a href="${pageContext.request.contextPath}/mascotas" class="text-sm text-zinc-400 hover:text-zinc-600 transition-colors">← Volver a mascotas</a>
+            <a href="${pageContext.request.contextPath}/mascotas"
+               class="text-sm text-zinc-400 hover:text-zinc-600 transition-colors">← Volver a mascotas</a>
             <h1 class="text-2xl font-semibold text-zinc-900 tracking-tight mt-3">Historia Clínica</h1>
             <c:if test="${not empty historias}">
                 <p class="text-sm text-zinc-400 mt-1">${historias[0].nombreMascota} — ${historias[0].especie}</p>
             </c:if>
         </div>
-        <a href="${pageContext.request.contextPath}/historias?accion=nueva&idMascota=${idMascota}"
-           class="px-4 py-2 bg-zinc-900 text-white text-sm font-medium rounded-xl hover:bg-zinc-700 transition-all">
-            + Nueva entrada
-        </a>
+
+        <%-- ✅ Botones juntos --%>
+        <div class="flex gap-3">
+            <a href="${pageContext.request.contextPath}/pdf/historia?idMascota=${idMascota}"
+               class="px-4 py-2 bg-zinc-100 text-zinc-600 text-sm font-medium rounded-xl
+                      hover:bg-zinc-200 transition-all">
+                ⬇ Descargar PDF
+            </a>
+            <a href="${pageContext.request.contextPath}/historias?accion=nueva&idMascota=${idMascota}"
+               class="px-4 py-2 bg-zinc-900 text-white text-sm font-medium rounded-xl
+                      hover:bg-zinc-700 transition-all">
+                + Nueva entrada
+            </a>
+        </div>
     </div>
 
     <!-- Timeline de entradas -->

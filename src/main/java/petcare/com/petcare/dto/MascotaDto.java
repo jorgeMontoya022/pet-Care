@@ -8,6 +8,8 @@ public class MascotaDto {
     private Integer edad;
     private String cedulaDueno;  // Para buscar al dueño al registrar
     private String nombreDueno;  // Para mostrar "Firulais - Dueño: Juan Perez"
+    private String telefonoDueno;
+    private String correoDueno;
 
     public MascotaDto() {
 
@@ -68,4 +70,10 @@ public class MascotaDto {
     public void setNombreDueno(String nombreDueno) {
         this.nombreDueno = nombreDueno;
     }
+
+    public String getTelefonoDueno() { return telefonoDueno; }
+    public void setTelefonoDueno(String telefonoDueno) { this.telefonoDueno = telefonoDueno; }
+
+    public String getCorreoDueno() { return correoDueno; }
+    public void setCorreoDueno(String correoDueno) { this.correoDueno = correoDueno; }
 }

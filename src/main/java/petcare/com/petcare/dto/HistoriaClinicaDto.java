@@ -3,6 +3,8 @@ package petcare.com.petcare.dto;
 import java.time.LocalDate;
 
 public class HistoriaClinicaDto {
+
+    private Long idHistorial;
     private String nombreMascota;
     private String especie;
     private String descripcion;
@@ -10,7 +12,14 @@ public class HistoriaClinicaDto {
     private LocalDate fecha;
 
     public HistoriaClinicaDto() {
+    }
 
+    public Long getIdHistorial() {
+        return idHistorial;
+    }
+
+    public void setIdHistorial(Long idHistorial) {
+        this.idHistorial = idHistorial;
     }
 
     public String getNombreMascota() {

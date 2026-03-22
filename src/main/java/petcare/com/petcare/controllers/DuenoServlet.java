@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-
 @WebServlet("/duenos")
 public class DuenoServlet extends HttpServlet {
+
     private DuenoService duenoService;
 
     @Override
@@ -28,34 +28,41 @@ public class DuenoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String accion = request.getParameter("accion");
+        String accion = req.getParameter("accion");
+
         try {
-            if ("editar".equals(accion)) {
-                String cedula = request.getParameter("cedula");
+            if ("nuevo".equals(accion)) {
+                req.getRequestDispatcher("/WEB-INF/views/duenos/formRegistrar.jsp")
+                        .forward(req, resp);
+
+            } else if ("editar".equals(accion)) {
+                String cedula = req.getParameter("cedula");
                 DuenoDto dueno = duenoService.buscarPorCedula(cedula);
-                request.setAttribute("dueno", dueno);
-                request.getRequestDispatcher("/WEB-INF/views/duenos/formEditar.jsp")
-                        .forward(request, response);
+                req.setAttribute("dueno", dueno);
+                req.getRequestDispatcher("/WEB-INF/views/duenos/formEditar.jsp")
+                        .forward(req, resp);
+
             } else if ("eliminar".equals(accion)) {
-                String cedula = request.getParameter("cedula");
+                String cedula = req.getParameter("cedula");
                 duenoService.eliminar(cedula);
-                response.sendRedirect(request.getContextPath() + "/duenos");
+                resp.sendRedirect(req.getContextPath() + "/duenos");
 
             } else {
                 List<DuenoDto> lista = duenoService.listarTodos();
-                request.setAttribute("duenos", lista);
-                request.getRequestDispatcher("/WEB-INF/views/duenos/listar.jsp")
-                        .forward(request, response);
+                req.setAttribute("duenos", lista);
+                req.getRequestDispatcher("/WEB-INF/views/duenos/listar.jsp")
+                        .forward(req, resp);
             }
+
         } catch (SQLException e) {
             throw new ServletException("Error en la base de datos.", e);
         } catch (IllegalArgumentException e) {
-            request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/views/duenos/listar.jsp")
-                    .forward(request, response);
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/WEB-INF/views/duenos/listar.jsp")
+                    .forward(req, resp);
         }
     }
 
