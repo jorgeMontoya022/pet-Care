@@ -11,7 +11,8 @@ public class MascotaEntity {
     private Integer edad;      // NUMBER
     private Long idDueno;      // NUMBER (Foreign Key hacia DueñoEntity)
 
-    public MascotaEntity() {}
+    public MascotaEntity() {
+    }
 
     public MascotaEntity(Long idMascota, String nombre, String especie, String raza, Integer edad, Long idDueno) {
         this.idMascota = idMascota;
@@ -23,21 +24,51 @@ public class MascotaEntity {
     }
 
     // Getters y Setters
-    public Long getIdMascota() { return idMascota; }
-    public void setIdMascota(Long idMascota) { this.idMascota = idMascota; }
+    public Long getIdMascota() {
+        return idMascota;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setIdMascota(Long idMascota) {
+        this.idMascota = idMascota;
+    }
 
-    public String getEspecie() { return especie; }
-    public void setEspecie(String especie) { this.especie = especie; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String getRaza() { return raza; }
-    public void setRaza(String raza) { this.raza = raza; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public Integer getEdad() { return edad; }
-    public void setEdad(Integer edad) { this.edad = edad; }
+    public String getEspecie() {
+        return especie;
+    }
 
-    public Long getIdDueno() { return idDueno; }
-    public void setIdDueno(Long idDueño) { this.idDueno = idDueno; }
+    public void setEspecie(String especie) {
+        this.especie = especie;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
+    }
+
+    public Long getIdDueno() {
+        return idDueno;
+    }
+
+    public void setIdDueno(Long idDueno) {
+        this.idDueno = idDueno;
+    }
 }

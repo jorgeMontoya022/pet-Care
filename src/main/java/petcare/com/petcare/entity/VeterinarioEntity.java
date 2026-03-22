@@ -11,6 +11,7 @@ public class VeterinarioEntity {
     public VeterinarioEntity() {
 
     }
+
     public VeterinarioEntity(Long idVeterinario, String nombre, String especialidad, String tarjetaProfesional) {
         this.idVeterinario = idVeterinario;
         this.nombre = nombre;
