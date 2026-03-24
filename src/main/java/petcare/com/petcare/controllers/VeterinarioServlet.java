@@ -76,6 +76,7 @@ public class VeterinarioServlet extends HttpServlet {
         dto.setNombre(req.getParameter("nombre"));
         dto.setEspecialidad(req.getParameter("especialidad"));
         dto.setTarjetaProfesional(req.getParameter("tarjetaProfesional"));
+        dto.setContrasena(req.getParameter("contrasena"));
 
         try {
             if ("actualizar".equals(accion)) {

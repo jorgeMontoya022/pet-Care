@@ -27,24 +27,19 @@ public class MascotaRepository {
         }
     }
 
-    // JOIN con DUENOS para traer nombre y cédula del dueño
     public List<MascotaDto> listarTodas() throws SQLException {
         List<MascotaDto> lista = new ArrayList<>();
         String sql = """
                 SELECT m.idMascota, m.nombre, m.especie, m.raza, m.edad,
-                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno
+                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno,
+                       d.telefono AS telefonoDueno, d.correo AS correoDueno
                 FROM MASCOTAS m
                 JOIN DUENOS d ON m.idDueno = d.idDueno
                 """;
         try (PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                MascotaEntity entity = mapearMascota(rs);
-                lista.add(MascotaMapper.INSTANCE.toDto(
-                        entity,
-                        rs.getString("nombreDueno"),
-                        rs.getString("cedulaDueno")
-                ));
+                lista.add(mapearDto(rs));
             }
         }
         return lista;
@@ -53,7 +48,8 @@ public class MascotaRepository {
     public MascotaDto buscarPorId(Long id) throws SQLException {
         String sql = """
                 SELECT m.idMascota, m.nombre, m.especie, m.raza, m.edad,
-                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno
+                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno,
+                       d.telefono AS telefonoDueno, d.correo AS correoDueno
                 FROM MASCOTAS m
                 JOIN DUENOS d ON m.idDueno = d.idDueno
                 WHERE m.idMascota = ?
@@ -61,24 +57,18 @@ public class MascotaRepository {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return MascotaMapper.INSTANCE.toDto(
-                            mapearMascota(rs),
-                            rs.getString("nombreDueno"),
-                            rs.getString("cedulaDueno")
-                    );
-                }
+                if (rs.next()) return mapearDto(rs);
             }
         }
         return null;
     }
 
-    // Buscar mascotas por cédula del dueño (útil para el formulario de citas)
     public List<MascotaDto> buscarPorCedulaDueno(String cedula) throws SQLException {
         List<MascotaDto> lista = new ArrayList<>();
         String sql = """
                 SELECT m.idMascota, m.nombre, m.especie, m.raza, m.edad,
-                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno
+                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno,
+                       d.telefono AS telefonoDueno, d.correo AS correoDueno
                 FROM MASCOTAS m
                 JOIN DUENOS d ON m.idDueno = d.idDueno
                 WHERE d.cedula = ?
@@ -87,11 +77,7 @@ public class MascotaRepository {
             ps.setString(1, cedula);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    lista.add(MascotaMapper.INSTANCE.toDto(
-                            mapearMascota(rs),
-                            rs.getString("nombreDueno"),
-                            rs.getString("cedulaDueno")
-                    ));
+                    lista.add(mapearDto(rs));
                 }
             }
         }
@@ -118,41 +104,24 @@ public class MascotaRepository {
         }
     }
 
-    public MascotaDto buscarConDuenoPorId(Long id) throws SQLException {
-        String sql = """
-                SELECT m.idMascota, m.nombre, m.especie, m.raza, m.edad,
-                       d.nombre AS nombreDueno, d.cedula AS cedulaDueno,
-                       d.telefono AS telefonoDueno, d.correo AS correoDueno
-                FROM MASCOTAS m
-                JOIN DUENOS d ON m.idDueno = d.idDueno
-                WHERE m.idMascota = ?
-                """;
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setLong(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    MascotaDto dto = new MascotaDto();
-                    dto.setIdMascota(rs.getLong("idMascota"));
-                    dto.setNombre(rs.getString("nombre"));
-                    dto.setEspecie(rs.getString("especie"));
-                    dto.setRaza(rs.getString("raza"));
-                    dto.setEdad(rs.getInt("edad"));
-                    dto.setNombreDueno(rs.getString("nombreDueno"));
-                    dto.setCedulaDueno(rs.getString("cedulaDueno"));
-                    return dto;
-                }
-            }
-        }
-        return null;
-    }
+    // ── MAPPER INTERNO ───────────────────────────────────────────
+    private MascotaDto mapearDto(ResultSet rs) throws SQLException {
+        MascotaEntity entity = new MascotaEntity();
+        entity.setIdMascota(rs.getLong("idMascota"));
+        entity.setNombre(rs.getString("nombre"));
+        entity.setEspecie(rs.getString("especie"));
+        entity.setRaza(rs.getString("raza"));
+        entity.setEdad(rs.getInt("edad"));
 
-    private MascotaEntity mapearMascota(ResultSet rs) throws SQLException {
-        MascotaEntity m = new MascotaEntity();
-        m.setIdMascota(rs.getLong("idMascota"));
-        m.setNombre(rs.getString("nombre"));
-        m.setEspecie(rs.getString("especie"));
-        m.setRaza(rs.getString("raza"));
-        m.setEdad(rs.getInt("edad"));
-        return m;
+        MascotaDto dto = MascotaMapper.INSTANCE.toDto(
+                entity,
+                rs.getString("nombreDueno"),
+                rs.getString("cedulaDueno")
+        );
+
+        // Campos extra para el PDF
+        dto.setTelefonoDueno(rs.getString("telefonoDueno"));
+        dto.setCorreoDueno(rs.getString("correoDueno"));
+        return dto;
     }
 }

@@ -7,9 +7,9 @@
     <title>PetCare — Inicio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style> body {
-        font-family: 'DM Sans', sans-serif;
-    } </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <style> body { font-family: 'DM Sans', sans-serif; } </style>
 </head>
 <body class="min-h-screen bg-zinc-50">
 
@@ -20,43 +20,59 @@
     <!-- Saludo -->
     <div class="mb-10">
         <h1 class="text-3xl font-semibold text-zinc-900 tracking-tight">
-            Bienvenido, Dr. ${sessionScope.veterinarioLogueado.nombre} 👋
+            Bienvenido, Dr. ${sessionScope.veterinarioLogueado.nombre}
         </h1>
-        <p class="mt-1 text-zinc-400 text-sm">¿Qué vas a gestionar hoy?</p>
+        <p class="mt-1 text-zinc-400 text-sm">Panel de administración — PetCare</p>
     </div>
 
-    <!-- Cards de navegación -->
+    <!-- Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
+        <!-- Dueños -->
         <a href="${pageContext.request.contextPath}/duenos"
-           class="group bg-white border border-zinc-100 rounded-2xl p-6 hover:border-zinc-300
+           class="group bg-white border border-zinc-200 rounded-2xl p-6 hover:border-zinc-400
                       hover:shadow-md transition-all">
-            <div class="text-3xl mb-4">👤</div>
-            <h3 class="font-medium text-zinc-900 group-hover:text-zinc-700">Dueños</h3>
+            <div class="w-10 h-10 bg-zinc-100 rounded-xl mb-4 flex items-center justify-center
+                            group-hover:bg-zinc-200 transition-all">
+                <i class="fa-solid fa-users text-zinc-600 text-lg"></i>
+            </div>
+            <h3 class="font-medium text-zinc-900">Dueños</h3>
             <p class="text-xs text-zinc-400 mt-1">Registrar y gestionar clientes</p>
         </a>
 
+        <!-- Mascotas -->
         <a href="${pageContext.request.contextPath}/mascotas"
-           class="group bg-white border border-zinc-100 rounded-2xl p-6 hover:border-zinc-300
+           class="group bg-white border border-zinc-200 rounded-2xl p-6 hover:border-zinc-400
                       hover:shadow-md transition-all">
-            <div class="text-3xl mb-4">🐶</div>
-            <h3 class="font-medium text-zinc-900 group-hover:text-zinc-700">Mascotas</h3>
+            <div class="w-10 h-10 bg-zinc-100 rounded-xl mb-4 flex items-center justify-center
+                            group-hover:bg-zinc-200 transition-all">
+                <i class="fa-solid fa-paw text-zinc-600 text-lg"></i>
+            </div>
+            <h3 class="font-medium text-zinc-900">Mascotas</h3>
             <p class="text-xs text-zinc-400 mt-1">Registro de pacientes</p>
         </a>
 
+        <!-- Citas -->
         <a href="${pageContext.request.contextPath}/citas"
-           class="group bg-white border border-zinc-100 rounded-2xl p-6 hover:border-zinc-300
+           class="group bg-white border border-zinc-200 rounded-2xl p-6 hover:border-zinc-400
                       hover:shadow-md transition-all">
-            <div class="text-3xl mb-4">📅</div>
-            <h3 class="font-medium text-zinc-900 group-hover:text-zinc-700">Citas</h3>
+            <div class="w-10 h-10 bg-zinc-100 rounded-xl mb-4 flex items-center justify-center
+                            group-hover:bg-zinc-200 transition-all">
+                <i class="fa-solid fa-calendar-days text-zinc-600 text-lg"></i>
+            </div>
+            <h3 class="font-medium text-zinc-900">Citas</h3>
             <p class="text-xs text-zinc-400 mt-1">Agenda y programación</p>
         </a>
 
+        <!-- Veterinarios -->
         <a href="${pageContext.request.contextPath}/veterinarios"
-           class="group bg-white border border-zinc-100 rounded-2xl p-6 hover:border-zinc-300
+           class="group bg-white border border-zinc-200 rounded-2xl p-6 hover:border-zinc-400
                       hover:shadow-md transition-all">
-            <div class="text-3xl mb-4">🩺</div>
-            <h3 class="font-medium text-zinc-900 group-hover:text-zinc-700">Veterinarios</h3>
+            <div class="w-10 h-10 bg-zinc-100 rounded-xl mb-4 flex items-center justify-center
+                            group-hover:bg-zinc-200 transition-all">
+                <i class="fa-solid fa-stethoscope text-zinc-600 text-lg"></i>
+            </div>
+            <h3 class="font-medium text-zinc-900">Veterinarios</h3>
             <p class="text-xs text-zinc-400 mt-1">Equipo médico</p>
         </a>
 

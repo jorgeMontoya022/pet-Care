@@ -5,6 +5,7 @@ public class VeterinarioDto {
     private String nombre;
     private String especialidad;
     private String tarjetaProfesional;
+    private String contrasena;
 
     public VeterinarioDto() {
 
@@ -41,4 +42,7 @@ public class VeterinarioDto {
     public void setTarjetaProfesional(String tarjetaProfesional) {
         this.tarjetaProfesional = tarjetaProfesional;
     }
+
+    public String getContrasena() { return contrasena; }
+    public void setContrasena(String contrasena) { this.contrasena = contrasena; }
 }

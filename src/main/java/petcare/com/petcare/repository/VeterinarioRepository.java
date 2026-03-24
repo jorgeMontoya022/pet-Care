@@ -14,11 +14,12 @@ public class VeterinarioRepository {
     }
 
     public void guardar(VeterinarioEntity vet) throws SQLException {
-        String sql = "INSERT INTO VETERINARIOS (nombre, especialidad, tarjetaProfesional) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO VETERINARIOS (nombre, especialidad, tarjetaProfesional, contrasena) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, vet.getNombre());
             ps.setString(2, vet.getEspecialidad());
             ps.setString(3, vet.getTarjetaProfesional());
+            ps.setString(4, vet.getContrasena());
             ps.executeUpdate();
         }
     }

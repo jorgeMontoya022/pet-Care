@@ -43,9 +43,14 @@ public class CitaServiceImpl implements CitaService {
             throw new IllegalArgumentException("No existe una mascota con ese ID.");
 
         // Verificar que el veterinario existe
-        var vet = veterinarioRepository.buscarPorId(citaDto.getIdCita());
+        var vet = veterinarioRepository.buscarPorId(citaDto.getIdVeterinario());
         if (vet == null)
             throw new IllegalArgumentException("No existe un veterinario con ese ID.");
+
+        //Validar que no haya cita duplicada
+        if (citaRepository.existeCitaDuplicada(vet.getIdVeterinario(), citaDto.getFechaHora()))
+            throw new IllegalArgumentException(
+                    "El veterinario ya tiene una cita programada en esa fecha y hora");
 
         CitaEntity entity = CitaMapper.INSTANCE.toEntity(
                 citaDto,

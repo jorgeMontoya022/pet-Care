@@ -11,6 +11,7 @@ public class CitaDto {
     private String nombreMascota;
     private String nombreVeterinario;
     private String cedulaDueno;
+    private Long idVeterinario;
 
     public CitaDto() {
 
@@ -70,5 +71,13 @@ public class CitaDto {
 
     public void setCedulaDueno(String cedulaDueno) {
         this.cedulaDueno = cedulaDueno;
+    }
+
+    public Long getIdVeterinario() {
+        return idVeterinario;
+    }
+
+    public void setIdVeterinario(Long idVeterinario) {
+        this.idVeterinario = idVeterinario;
     }
 }

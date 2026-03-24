@@ -3,7 +3,9 @@ package petcare.com.petcare.repository;
 import petcare.com.petcare.dto.CitaDto;
 import petcare.com.petcare.entity.CitaEntity;
 import petcare.com.petcare.mapping.CitaMapper;
+
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +66,24 @@ public class CitaRepository {
             ps.setLong(1, id);
             ps.executeUpdate();
         }
+    }
+
+    public boolean existeCitaDuplicada(Long idVeterinario, LocalDateTime fechaHora) throws SQLException {
+        String sql = """ 
+                SELECT COUNT(*) FROM CITAS
+                WHERE idVeterinario = ?
+                AND fechaHora = ?
+                AND estado = 'PROGRAMADA'
+                """;
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, idVeterinario);
+            ps.setTimestamp(2, Timestamp.valueOf(fechaHora));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1) > 0;
+
+            }
+        }
+        return false;
     }
 
     private CitaDto mapearCitaDto(ResultSet rs) throws SQLException {

@@ -87,7 +87,7 @@ public class CitaServlet extends HttpServlet {
 
         CitaDto dto = new CitaDto();
         dto.setIdCita(Long.parseLong(req.getParameter("idMascota")));
-        dto.setNombreVeterinario(req.getParameter("idVeterinario"));
+        dto.setIdVeterinario(Long.parseLong(req.getParameter("idVeterinario")));
         dto.setMotivo(req.getParameter("motivo"));
         dto.setEstado("PROGRAMADA");
 
